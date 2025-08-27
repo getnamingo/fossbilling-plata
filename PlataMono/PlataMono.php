@@ -114,7 +114,7 @@ class Payment_Adapter_PlataMono implements InjectionAwareInterface
 
         $redirectUrl = $this->di['tools']->url('invoice/' . $invoice->hash);
         $webHookUrl  = $payGatewayService->getCallbackUrl($gateway, $invoice);
-		//$webHookUrl = $this->di['tools']->url('ipn.php', ['gateway_id' => $gateway->id]);
+        //$webHookUrl = $this->di['tools']->url('ipn.php', ['gateway_id' => $gateway->id]);
 
         $title = $this->getInvoiceTitle($invoice);
 
@@ -247,6 +247,7 @@ class Payment_Adapter_PlataMono implements InjectionAwareInterface
         $tx->currency   = $currency;
         $tx->txn_status = $plataStatus;
         $tx->ip         = $_SERVER['REMOTE_ADDR'] ?? null;
+        $tx->type = 'Payment';
 
         $statusMapped = $this->statusMap[$plataStatus] ?? 'pending';
         $tx->status   = $statusMapped;
